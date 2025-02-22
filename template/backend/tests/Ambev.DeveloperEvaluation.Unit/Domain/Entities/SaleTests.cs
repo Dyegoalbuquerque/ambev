@@ -1,3 +1,4 @@
+using Ambev.DeveloperEvaluation.Application.Sales;
 using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Unit.Domain.Entities.TestData;
 using Xunit;
@@ -24,11 +25,11 @@ public class SaleTests
             UnitPrice = item.UnitPrice
         }).ToList();
 
-        var saleCalculation = new SaleCalculationTestData().Generate();
 
-        var numberItensIdenticals = sale.GetNumberIdenticalsItens();
-        sale.TotalDiscounts = saleCalculation.CalculateDiscount(numberItensIdenticals);
-        sale.TotalSaleAmount = saleCalculation.CalculateTotalSaleAmount(numberItensIdenticals, sale.TotalDiscounts);
+        var totalAmount = SaleCalculation.CalculateTotalAmount(sale);
+        var numberItensIdenticals = SaleCalculation.CalculateNumbersIdenticalsItens(sale);
+        sale.TotalDiscounts = SaleCalculation.CalculateDiscount(numberItensIdenticals);
+        sale.TotalSaleAmount = SaleCalculation.CalculateTotalSaleAmount(totalAmount, sale.TotalDiscounts);
 
         Assert.Equal(10m, sale.TotalDiscounts);
     }
@@ -48,11 +49,10 @@ public class SaleTests
             UnitPrice = item.UnitPrice
         }).ToList();
 
-        var saleCalculation = new SaleCalculationTestData().Generate();
-
-        var numberItensIdenticals = sale.GetNumberIdenticalsItens();
-        sale.TotalDiscounts = saleCalculation.CalculateDiscount(numberItensIdenticals);
-        sale.TotalSaleAmount = saleCalculation.CalculateTotalSaleAmount(numberItensIdenticals, sale.TotalDiscounts);
+        var totalAmount = SaleCalculation.CalculateTotalAmount(sale);
+        var numberItensIdenticals = SaleCalculation.CalculateNumbersIdenticalsItens(sale);
+        sale.TotalDiscounts = SaleCalculation.CalculateDiscount(numberItensIdenticals);
+        sale.TotalSaleAmount = SaleCalculation.CalculateTotalSaleAmount(totalAmount, sale.TotalDiscounts);
 
         Assert.Equal(20m, sale.TotalDiscounts);
     }
@@ -72,11 +72,10 @@ public class SaleTests
             UnitPrice = item.UnitPrice
         }).ToList();
 
-        var saleCalculation = new SaleCalculationTestData().Generate();
-
-        var numberItensIdenticals = sale.GetNumberIdenticalsItens();
-        sale.TotalDiscounts = saleCalculation.CalculateDiscount(numberItensIdenticals);
-        sale.TotalSaleAmount = saleCalculation.CalculateTotalSaleAmount(numberItensIdenticals, sale.TotalDiscounts);
+        var totalAmount = SaleCalculation.CalculateTotalAmount(sale);
+        var numberItensIdenticals = SaleCalculation.CalculateNumbersIdenticalsItens(sale);
+        sale.TotalDiscounts = SaleCalculation.CalculateDiscount(numberItensIdenticals);
+        sale.TotalSaleAmount = SaleCalculation.CalculateTotalSaleAmount(totalAmount, sale.TotalDiscounts);
 
         Assert.Equal(0m, sale.TotalDiscounts);
     }
