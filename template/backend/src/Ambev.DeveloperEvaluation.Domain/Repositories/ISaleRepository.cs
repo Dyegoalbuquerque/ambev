@@ -24,6 +24,13 @@ public interface ISaleRepository
     Task<Sale?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Check a Sale it was canceled
+    /// </summary>
+    /// <param name="id">The unique identifier of the Sale</param>
+    /// <returns>The bool</returns>
+    Task<bool> CheckIsCanceledAsync(Guid id);
+
+    /// <summary>
     /// Updates a new Sale in the repository
     /// </summary>
     /// <param name="Sale">The Sale to update</param>

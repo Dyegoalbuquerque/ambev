@@ -9,7 +9,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities;
 /// </summary>
 public class Sale : BaseEntity
 {
-    public string SaleNumber { get; set; } = Guid.NewGuid().ToString();
+    public string SaleNumber { get; set; }
 
     public DateTime SaleAt { get; set; }
 
@@ -28,13 +28,6 @@ public class Sale : BaseEntity
     public List<SaleItem> Products { get; set; } = new List<SaleItem>();
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-    public int GetNumberIdenticalsItens()
-    {
-        return Products.GroupBy(item => item.ProductId).Select(group => group.Sum(item => item.Quantity))
-                       .OrderByDescending(totalQuantity => totalQuantity)
-                       .FirstOrDefault();
-    }
 
     public ValidationResultDetail Validate()
     {

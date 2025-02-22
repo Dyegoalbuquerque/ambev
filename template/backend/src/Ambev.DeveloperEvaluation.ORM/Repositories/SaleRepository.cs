@@ -44,6 +44,16 @@ public class SaleRepository : ISaleRepository
         return await _context.Sales.Include(s => s.Products).FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
     }
 
+     /// <summary>
+    /// Check a Sale it was canceled
+    /// </summary>
+    /// <param name="id">The unique identifier of the Sale</param>
+    /// <returns>The bool</returns>
+    public async Task<bool> CheckIsCanceledAsync(Guid id)
+    {
+        return await _context.Sales.Where(o => o.Id == id && o.IsCancelled == true).AnyAsync();
+    }
+
     /// <summary>
     /// Creates a new Sale in the database
     /// </summary>

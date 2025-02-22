@@ -9,8 +9,6 @@ public class BaseSaleRequest
     public string CustomerName { get; set; }
     
     public string BranchSale { get; set; }
-    
-    public bool IsCancelled { get; set; }    
-    
+        
     public List<BaseSaleItemRequest> Products { get; set; }
 }

@@ -11,5 +11,6 @@ public class UpdateSaleValidator : AbstractValidator<UpdateSaleCommand>
         RuleFor(sale => sale.CustomerName).NotEmpty().Length(3, 50);        
         RuleFor(sale => sale.SaleAt).Must(date => date != default(DateTime));  
         RuleFor(sale => sale.Products).NotEmpty();  
+        RuleFor(sale => sale.SaleNumber).NotEmpty();  
     }
 }

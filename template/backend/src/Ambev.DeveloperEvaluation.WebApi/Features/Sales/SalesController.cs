@@ -17,6 +17,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales;
 [Route("api/[controller]")]
 public class SalesController : BaseController
 {
+    private readonly ILogger<SalesController> _logger;
     private readonly IMediator _mediator;
     private readonly IMapper _mapper;
 
@@ -25,8 +26,9 @@ public class SalesController : BaseController
     /// </summary>
     /// <param name="mediator">The mediator instance</param>
     /// <param name="mapper">The AutoMapper instance</param>
-    public SalesController(IMediator mediator, IMapper mapper)
+    public SalesController(ILogger<SalesController> logger, IMediator mediator, IMapper mapper)
     {
+        _logger = logger;
         _mediator = mediator;
         _mapper = mapper;
     }
@@ -50,6 +52,8 @@ public class SalesController : BaseController
 
         var command = _mapper.Map<CreateSaleCommand>(request);
         var response = await _mediator.Send(command, cancellationToken);
+        
+        _logger.LogInformation("Sale created successfully");
 
         return Created(string.Empty, new ApiResponseWithData<BaseSaleResponse>
         {
@@ -81,11 +85,13 @@ public class SalesController : BaseController
         var command = _mapper.Map<UpdateSaleCommand>(request);
         
         var response = await _mediator.Send(command, cancellationToken);
+        
+        _logger.LogInformation("Sale updated successfully");
 
         return Created(string.Empty, new ApiResponseWithData<BaseSaleResponse>
         {
             Success = true,
-            Message = "Sale Updated successfully",
+            Message = "Sale updated successfully",
             Data = _mapper.Map<BaseSaleResponse>(response)
         });
     }
@@ -101,7 +107,7 @@ public class SalesController : BaseController
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetSales([FromRoute] Guid id, CancellationToken cancellationToken)
-    {
+    {        
         var request = new SaleIdRequest { Id = id };
         var validator = new SaleIdRequestValidator();
         var validationResult = await validator.ValidateAsync(request, cancellationToken);
@@ -111,6 +117,8 @@ public class SalesController : BaseController
 
         var command = _mapper.Map<GetSaleCommand>(request.Id);
         var response = await _mediator.Send(command, cancellationToken);
+
+        _logger.LogInformation("Sale retrieved successfully");
 
         return Ok(new ApiResponseWithData<BaseSaleResponse>
         {
@@ -141,6 +149,8 @@ public class SalesController : BaseController
 
         var command = _mapper.Map<DeleteSaleCommand>(request.Id);
         await _mediator.Send(command, cancellationToken);
+
+        _logger.LogInformation("Sale deleted successfully");
 
         return Ok(new ApiResponse
         {
