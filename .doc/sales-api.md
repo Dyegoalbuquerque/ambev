@@ -82,20 +82,20 @@
 - Request Body:
   ```json
     {
-    "id": "string",
-    "saleAt": "string (ISO 8601 format)",
+    "saleAt": "2025-02-24T15:24:41.954Z",
     "customerId": "string",
     "customerName": "string",
-    "totalSaleAmount": "number",
     "branchSale": "string",
     "products": [
       {
         "productId": "string",
         "productName": "string",
-        "quantity": "integer",
-        "unitPrice": "number"
+        "quantity": 0,
+        "unitPrice": 0
       }
-    ]
+    ],
+    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "saleNumber": "string"
    }
   ```
 - Response: 
